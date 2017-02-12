@@ -6,7 +6,7 @@
 
     <uses-sdk
         android:minSdkVersion="8"
-        android:targetSdkVersion="18" />
+        android:targetSdkVersion="20" />
 
     <!-- 用于访问wifi网络信息，wifi信息会用于进行网络定位 -->
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
@@ -36,6 +36,8 @@
             </intent-filter>
         </activity>
         <activity android:name="com.cs2013.hjfa.activity.MainActivity"></activity>
+        <activity android:name="com.cs2013.hjfa.activity.ChangePsdActivity"></activity>
+        <activity android:name="com.cs2013.hjfa.activity.RegisterActivity"></activity>
     </application>
 
 </manifest>

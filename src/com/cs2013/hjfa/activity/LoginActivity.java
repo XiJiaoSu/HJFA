@@ -14,6 +14,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 /**
@@ -24,10 +25,12 @@ public class LoginActivity extends BaseActivity {
 	// 用户登陆成功后获取的User数据对象
 	private User user = null;
 
+	private Intent intent;
+	
 	private EditText mETUserName = null;
 	private EditText mETPwd = null;
 	private Button mBtLogin = null;
-
+	private TextView mTvChangpsd,mTvRegister;
 	@Override
 	protected void initViews() {
 		// 第一步必须是setContentView
@@ -35,11 +38,15 @@ public class LoginActivity extends BaseActivity {
 		mETUserName = (EditText) findViewById(R.id.et_username);
 		mETPwd = (EditText) findViewById(R.id.et_pwd);
 		mBtLogin = (Button) findViewById(R.id.bt_login);
+		mTvChangpsd = (TextView) findViewById(R.id.tv_forgetpsd);
+		mTvRegister = (TextView) findViewById(R.id.tv_newuser);
 	}
 
 	@Override
 	protected void initEvents() {
 		mBtLogin.setOnClickListener(this);
+		mTvChangpsd.setOnClickListener(this);
+		mTvRegister.setOnClickListener(this);
 	}
 
 	@Override
@@ -52,7 +59,14 @@ public class LoginActivity extends BaseActivity {
 			String json=new Gson().toJson(u);
 			connServer(Constants.URL_LOGIN, json, Constants.CODE_LOGIN);
 			break;
-
+		case R.id.tv_forgetpsd:
+			intent = new Intent(this,ChangePsdActivity.class);
+			startActivity(intent);
+			break;
+		case R.id.tv_newuser:
+			intent = new Intent(this,RegisterActivity.class);
+			startActivity(intent);
+			break;
 		default:
 			break;
 		}
