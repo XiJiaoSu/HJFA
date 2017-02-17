@@ -6,4 +6,8 @@
 	<color name="colorRed">#FF0000</color>
 	<color name="colorGrey">#eeeeee</color>
     <color name="menu_text_color">#333333</color>
+    
+    <!--  -->
+    <color name="main_bg">#46C4B7</color>
+    
 </resources>

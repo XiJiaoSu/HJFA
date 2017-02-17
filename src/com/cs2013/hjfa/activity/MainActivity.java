@@ -1,65 +1,85 @@
 package com.cs2013.hjfa.activity;
 
-import android.app.Activity;
-import android.os.Bundle;
 import android.view.View;
-import android.view.View.OnClickListener;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ListView;
 import android.widget.Toast;
 
 import com.cs2013.hjfa.R;
-import com.cs2013.hjfa.R.id;
-import com.cs2013.hjfa.R.layout;
 import com.cs2013.hjfa.views.CoordinatorMenu;
 
-public class MainActivity extends Activity {
+public class MainActivity extends BaseActivity {
 
-	private ImageView mHeadIv;
 	private CoordinatorMenu mCoordinatorMenu;
-
+	// 菜单按钮
 	private LinearLayout mLLOne = null;
+	// 主题页面按钮
+	private ImageView mHeadIv;
+	private ImageView mIvScan = null;
+	private ListView mLvContent = null;
 
-	@Override
-	protected void onCreate(Bundle savedInstanceState) {
-		super.onCreate(savedInstanceState);
+
+	protected void initViews() {
 		setContentView(R.layout.activity_main);
 		mHeadIv = (ImageView) findViewById(R.id.iv_head);
 		mCoordinatorMenu = (CoordinatorMenu) findViewById(R.id.menu);
-
-		mHeadIv.setOnClickListener(new View.OnClickListener() {
-			@Override
-			public void onClick(View v) {
-				if (mCoordinatorMenu.isOpened()) {
-					mCoordinatorMenu.closeMenu();
-				} else {
-					mCoordinatorMenu.openMenu();
-				}
-			}
-		});
-		initViews();
+		mLLOne = (LinearLayout) findViewById(R.id.ll_one);
+		mIvScan = (ImageView) findViewById(R.id.iv_scan);
+		mLvContent=(ListView) findViewById(R.id.lv_main_content);
 	}
 
-	private void initViews() {
-		mLLOne = (LinearLayout) findViewById(R.id.ll_one);
-		mLLOne.setOnClickListener(new OnClickListener() {
-
-			@Override
-			public void onClick(View v) {
-				// TODO Auto-generated method stub
-				Toast.makeText(MainActivity.this, "点击事件", Toast.LENGTH_SHORT)
-						.show();
-			}
-		});
+	@Override
+	protected void initEvents() {
+		mIvScan.setOnClickListener(this);
+		mHeadIv.setOnClickListener(this);
+		mLLOne.setOnClickListener(this);
 	}
 
 	@Override
 	public void onBackPressed() {
 		if (mCoordinatorMenu.isOpened()) {
 			mCoordinatorMenu.closeMenu();
-		} else {
-			super.onBackPressed();
+			return;
 		}
+		super.onBackPressed();
+	}
+
+	@Override
+	public void onClick(View v) {
+		switch (v.getId()) {
+		case R.id.iv_head:// 头像点击
+			if (mCoordinatorMenu.isOpened()) {
+				mCoordinatorMenu.closeMenu();
+			} else {
+				mCoordinatorMenu.openMenu();
+			}
+			break;
+		case R.id.ll_one:
+			Toast.makeText(MainActivity.this, "点击事件", Toast.LENGTH_SHORT)
+					.show();
+			break;
+		case R.id.iv_scan:
+			
+			break;
+		default:
+			break;
+		}
+	}
+
+	@Override
+	public void onResponse(String res, int code) {
+
+	}
+
+	@Override
+	public void successResult(int code) {
+
+	}
+
+	@Override
+	public void errorResult(int code) {
+
 	}
 
 }
