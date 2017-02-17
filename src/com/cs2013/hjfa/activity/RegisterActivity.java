@@ -31,7 +31,6 @@ public class RegisterActivity extends BaseActivity{
 
 	@Override
 	public void successResult(int code) {
-		// TODO Auto-generated method stub
 		
 	}
 
