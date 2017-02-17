@@ -1,5 +1,7 @@
 package com.cs2013.hjfa.activity;
 
+import android.content.Intent;
+import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -7,7 +9,10 @@ import android.widget.ListView;
 import android.widget.Toast;
 
 import com.cs2013.hjfa.R;
+import com.cs2013.hjfa.utils.Constants;
 import com.cs2013.hjfa.views.CoordinatorMenu;
+import com.xjtu.activity.CaptureActivity;
+import com.xjtu.activity.CodeUtils;
 
 public class MainActivity extends BaseActivity {
 
@@ -19,14 +24,13 @@ public class MainActivity extends BaseActivity {
 	private ImageView mIvScan = null;
 	private ListView mLvContent = null;
 
-
 	protected void initViews() {
 		setContentView(R.layout.activity_main);
 		mHeadIv = (ImageView) findViewById(R.id.iv_head);
 		mCoordinatorMenu = (CoordinatorMenu) findViewById(R.id.menu);
 		mLLOne = (LinearLayout) findViewById(R.id.ll_one);
 		mIvScan = (ImageView) findViewById(R.id.iv_scan);
-		mLvContent=(ListView) findViewById(R.id.lv_main_content);
+		mLvContent = (ListView) findViewById(R.id.lv_main_content);
 	}
 
 	@Override
@@ -60,7 +64,8 @@ public class MainActivity extends BaseActivity {
 					.show();
 			break;
 		case R.id.iv_scan:
-			
+			Intent intent = new Intent(this, CaptureActivity.class);
+			startActivityForResult(intent, Constants.RESULT_OK);
 			break;
 		default:
 			break;
@@ -80,6 +85,25 @@ public class MainActivity extends BaseActivity {
 	@Override
 	public void errorResult(int code) {
 
+	}
+
+	@Override
+	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+
+		if (requestCode == Constants.RESULT_OK && data != null) {
+			Bundle bundle = data.getExtras();
+			if (bundle == null) {
+				return;
+			}
+			if (bundle.getInt(CodeUtils.RESULT_TYPE) == CodeUtils.RESULT_SUCCESS) {
+				String result = bundle.getString(CodeUtils.RESULT_STRING);
+				Toast.makeText(this, "解析结果:" + result, Toast.LENGTH_LONG)
+						.show();
+			} else if (bundle.getInt(CodeUtils.RESULT_TYPE) == CodeUtils.RESULT_FAILED) {
+				Toast.makeText(MainActivity.this, "解析二维码失败", Toast.LENGTH_LONG)
+						.show();
+			}
+		}
 	}
 
 }

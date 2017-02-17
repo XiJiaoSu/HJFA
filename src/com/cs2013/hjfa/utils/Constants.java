@@ -12,4 +12,7 @@ public class Constants {
 	public static final int CODE_LOGINCOOD = 101;// 快速登录
 	public static final int CODE_SYS_NOTI = 200;// 系统消息
 	
+	//Activity 跳转请求码
+	public static final int RESULT_OK=1;//MainActivity与CaptureActivity之间的跳转编码
+	
 }
