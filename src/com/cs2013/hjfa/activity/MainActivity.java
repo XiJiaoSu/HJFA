@@ -76,6 +76,7 @@ public class MainActivity extends BaseActivity implements OnItemClickListener {
 		super.onBackPressed();
 	}
 
+	
 	@Override
 	public void onClick(View v) {
 		switch (v.getId()) {
