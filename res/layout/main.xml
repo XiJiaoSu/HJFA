@@ -17,7 +17,8 @@
             android:layout_gravity="center_vertical"
             android:layout_marginLeft="@dimen/activity_horizontal_margin"
             android:src="@drawable/head" />
-          <ImageView
+
+        <ImageView
             android:id="@+id/iv_scan"
             android:layout_width="40dp"
             android:layout_height="40dp"
@@ -25,10 +26,12 @@
             android:layout_marginRight="@dimen/activity_horizontal_margin"
             android:src="@drawable/top_scan_img" />
     </FrameLayout>
-	<ListView 
-	    android:layout_below="@+id/view_title"
-	    android:id="@+id/lv_main_content"
-	    android:layout_width="match_parent"
-	    android:layout_height="match_parent"
-	    ></ListView>
+
+    <ListView
+        android:id="@+id/lv_main_content"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/view_title" >
+    </ListView>
+
 </com.cs2013.hjfa.views.MainView>

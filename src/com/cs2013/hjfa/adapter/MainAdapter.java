@@ -2,6 +2,7 @@ package com.cs2013.hjfa.adapter;
 
 import java.util.List;
 
+import com.cs2013.hjfa.R;
 import com.cs2013.hjfa.pojo.Library;
 
 import android.content.Context;
@@ -45,8 +46,10 @@ public class MainAdapter extends BaseAdapter {
 		HoldView holdView=null;
 		if (convertView==null) {
 			holdView=new HoldView();
-			
-			
+			convertView=inflater.inflate(R.layout.item_ativity_main, null);
+			holdView.mIvHead=(ImageView) convertView.findViewById(R.id.iv_mItem_icon);
+			holdView.mTvName=(TextView) convertView.findViewById(R.id.tv_mItem_name);
+			holdView.mTvContent=(TextView) convertView.findViewById(R.id.tv_mList_content);
 			convertView.setTag(holdView);
 		}else{
 			holdView=(HoldView) convertView.getTag();
@@ -57,6 +60,6 @@ public class MainAdapter extends BaseAdapter {
 	class HoldView{
 		ImageView mIvHead;
 		TextView mTvName;
-		
+		TextView mTvContent;
 	}
 }
