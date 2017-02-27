@@ -50,6 +50,9 @@
         <activity android:name="com.cs2013.hjfa.activity.ChangePsdActivity"></activity>
         <activity android:name="com.cs2013.hjfa.activity.RegisterActivity"></activity>
         <activity android:name="com.xjtu.activity.CaptureActivity"></activity>
+        <activity android:name="com.cs2013.hjfa.activity.CollectionActivity"></activity>
+        <activity android:name="com.cs2013.hjfa.activity.HistoryOrderActivity"></activity>
+        <activity android:name="com.cs2013.hjfa.activity.SearchActivity"></activity>
     </application>
 
 </manifest>

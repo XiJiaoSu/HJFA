@@ -31,7 +31,8 @@
         android:id="@+id/lv_main_content"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@+id/view_title" >
+        android:layout_below="@+id/view_title">
+        
     </ListView>
 
 </com.cs2013.hjfa.views.MainView>

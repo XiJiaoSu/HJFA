@@ -20,7 +20,7 @@
     </RelativeLayout>
 
     <LinearLayout
-        android:id="@+id/ll_one"
+        android:id="@+id/ll_history"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="@dimen/activity_vertical_margin"
@@ -46,7 +46,7 @@
     </LinearLayout>
 
     <LinearLayout
-        android:id="@+id/ll_two"
+        android:id="@+id/ll_collection"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="@dimen/activity_vertical_margin"
@@ -71,7 +71,7 @@
     </LinearLayout>
 
     <LinearLayout
-        android:id="@+id/ll_three"
+        android:id="@+id/ll_exit"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@drawable/menu_item"
@@ -86,6 +86,7 @@
             android:src="@drawable/basketball" />
 
         <TextView
+            android:id="@+id/tv_exit_menu"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="@dimen/activity_horizontal_margin"

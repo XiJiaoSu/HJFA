@@ -23,14 +23,18 @@ import android.widget.Toast;
  */
 public class LoginActivity extends BaseActivity {
 	// 用户登陆成功后获取的User数据对象
+	public static final String PRE_CLASS = "preClazz";
+	private Class preClazz = MainActivity.class;
 	private User user = null;
 
 	private Intent intent;
-	
+
 	private EditText mETUserName = null;
 	private EditText mETPwd = null;
 	private Button mBtLogin = null;
-	private TextView mTvChangpsd,mTvRegister;
+	private Button mBtExit = null;
+	private TextView mTvChangpsd, mTvRegister;
+
 	@Override
 	protected void initViews() {
 		// 第一步必须是setContentView
@@ -40,6 +44,12 @@ public class LoginActivity extends BaseActivity {
 		mBtLogin = (Button) findViewById(R.id.bt_login);
 		mTvChangpsd = (TextView) findViewById(R.id.tv_forgetpsd);
 		mTvRegister = (TextView) findViewById(R.id.tv_newuser);
+		mBtExit=(Button) findViewById(R.id.bt_exit);
+		if (getIntent() != null) {
+			if (getIntent().getExtras() != null) {
+				this.preClazz = (Class) getIntent().getExtras().getSerializable(PRE_CLASS);
+			}
+		}
 	}
 
 	@Override
@@ -47,25 +57,29 @@ public class LoginActivity extends BaseActivity {
 		mBtLogin.setOnClickListener(this);
 		mTvChangpsd.setOnClickListener(this);
 		mTvRegister.setOnClickListener(this);
+		mBtExit.setOnClickListener(this);
 	}
 
 	@Override
 	public void onClick(View v) {
 		switch (v.getId()) {
 		case R.id.bt_login:
-			User u=new User();
+			User u = new User();
 			u.setUsername(mETUserName.getText().toString().trim());
 			u.setPassword(mETPwd.getText().toString().trim());
-			String json=new Gson().toJson(u);
+			String json = new Gson().toJson(u);
 			connServer(Constants.URL_LOGIN, json, Constants.CODE_LOGIN);
 			break;
 		case R.id.tv_forgetpsd:
-			intent = new Intent(this,ChangePsdActivity.class);
+			intent = new Intent(this, ChangePsdActivity.class);
 			startActivity(intent);
 			break;
 		case R.id.tv_newuser:
-			intent = new Intent(this,RegisterActivity.class);
+			intent = new Intent(this, RegisterActivity.class);
 			startActivity(intent);
+			break;
+		case R.id.bt_exit:
+			finish();
 			break;
 		default:
 			break;
@@ -84,8 +98,8 @@ public class LoginActivity extends BaseActivity {
 			}.getType();
 			// 开始转型
 			JsonObject<User> object = gson.fromJson(res, objectType);
-			Log.e("Log", object.getCode()+"");
-			Log.e("Log", object.getMsg()+"");
+			Log.e("Log", object.getCode() + "");
+			Log.e("Log", object.getMsg() + "");
 			if (object.getCode() == Constants.JSON_OK) {// JSON数据中返回的数据正常
 				user = object.getResult();// 获取对象数据
 				Log.e("Log", user.getUsername());
@@ -107,9 +121,10 @@ public class LoginActivity extends BaseActivity {
 		case Constants.CODE_LOGIN:
 			Log.e("Log", "success");
 			if (user != null && msg == null) {// 登录成功进行页面的跳转
+				getHApplication().loginSuccess(user);
 				Log.e("Log", "intent");
 				Intent intent = new Intent(getApplicationContext(),
-						MainActivity.class);
+						preClazz);
 				startActivity(intent);
 				finish();
 			}
