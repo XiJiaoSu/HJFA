@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:background="@color/main_bg"
+    android:layout_height="wrap_content" >
+
+    <RadioGroup
+        android:id="@+id/rg_main"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:orientation="horizontal">
+
+        <RadioButton
+            android:id="@+id/rb_library"
+            style="@style/main_tab_bottom"
+            android:text="主页"
+            android:checked="true"
+            android:textSize="12sp"
+            android:textColor="@drawable/main_tab_tips"
+            android:drawableTop="@drawable/main_tab_home"/>
+
+        <RadioButton
+            android:id="@+id/rb_msg"
+            style="@style/main_tab_bottom"
+            android:text="资讯"
+            android:textColor="@drawable/main_tab_tips"
+            android:drawableTop="@drawable/main_tab_notification" >
+        </RadioButton>
+    </RadioGroup>
+
+</RelativeLayout>

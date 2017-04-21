@@ -4,6 +4,15 @@
     android:layout_height="match_parent"
     android:background="#fff" >
 
+    <LinearLayout
+        android:id="@+id/in_bottom"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true" >
+
+        <include layout="@layout/activity_main_buttom" />
+    </LinearLayout>
+
     <FrameLayout
         android:id="@+id/view_title"
         android:layout_width="match_parent"
@@ -27,12 +36,12 @@
             android:src="@drawable/top_scan_img" />
     </FrameLayout>
 
-    <ListView
-        android:id="@+id/lv_main_content"
+    <android.support.v4.view.ViewPager
+        android:id="@+id/vp_main"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@+id/view_title">
-        
-    </ListView>
+        android:layout_above="@+id/in_bottom"
+        android:layout_below="@+id/view_title" >
+    </android.support.v4.view.ViewPager>
 
 </com.cs2013.hjfa.views.MainView>

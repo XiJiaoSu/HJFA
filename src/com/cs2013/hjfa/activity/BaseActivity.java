@@ -1,10 +1,9 @@
 package com.cs2013.hjfa.activity;
 
-import android.app.Activity;
 import android.app.Dialog;
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.app.FragmentActivity;
 import android.view.View.OnClickListener;
 import android.view.Window;
 import android.widget.Toast;
@@ -18,7 +17,7 @@ import com.cs2013.hjfa.utils.NetWorkResponse;
  * 自定义的BaseActivity，所有的activity都继承自它
  * 
  */
-public abstract class BaseActivity extends Activity implements OnClickListener,
+public abstract class BaseActivity extends FragmentActivity implements OnClickListener,
 		MResponseHandler {
 	// 用于访问请求网络时使用
 	private NetWorkResponse netWorkResponse;

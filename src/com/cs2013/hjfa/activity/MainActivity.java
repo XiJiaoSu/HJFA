@@ -5,65 +5,78 @@ import java.util.List;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.view.ViewPager;
+import android.support.v4.view.ViewPager.OnPageChangeListener;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.ListView;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
+import android.widget.RadioGroup.OnCheckedChangeListener;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.cs2013.hjfa.R;
-import com.cs2013.hjfa.adapter.MainAdapter;
-import com.cs2013.hjfa.pojo.Library;
+import com.cs2013.hjfa.adapter.FragmentAdapter;
 import com.cs2013.hjfa.utils.Constants;
 import com.cs2013.hjfa.views.CoordinatorMenu;
 import com.xjtu.activity.CaptureActivity;
 import com.xjtu.activity.CodeUtils;
 
-public class MainActivity extends BaseActivity implements OnItemClickListener {
+public class MainActivity extends BaseActivity implements 
+		OnCheckedChangeListener {
 
 	private CoordinatorMenu mCoordinatorMenu;
 	// 菜单按钮
 	private LinearLayout mLLOne = null;
 	private LinearLayout mLLTwo = null;
 	private LinearLayout mLLThree = null;
-	private TextView mTVExit=null;
-	private View view=null;
+	private TextView mTVExit = null;
 	// 主题页面按钮
-	private TextView mTVSearch=null;
+	// private TextView mTVSearch=null;
 	private ImageView mHeadIv;
 	private ImageView mIvScan = null;
-	private ListView mLvContent = null;
-	private MainAdapter mAdapter = null;
-	
+	// private ListView mLvContent = null;
+	// private MainAdapter mAdapter = null;
+	private static final int TAB_LIBRARY = 0;
+	private static final int TAB_MSG = 1;
+	private ViewPager mVPMain = null;
+	private RadioButton mRBLibrary, mRBMsg;
+	private RadioGroup mRGMain;
+	private FragmentAdapter<BaseFragment> mViewPagerAdapter;
+	private List<BaseFragment> mFragments = null;
+
 	protected void initViews() {
 		setContentView(R.layout.activity_main);
+
+		mVPMain = (ViewPager) findViewById(R.id.vp_main);
+
+		mRGMain = (RadioGroup) findViewById(R.id.rg_main);
+		mRBLibrary=(RadioButton) findViewById(R.id.rb_library);
+		mRBMsg=(RadioButton) findViewById(R.id.rb_msg);
 		mHeadIv = (ImageView) findViewById(R.id.iv_head);
 		mCoordinatorMenu = (CoordinatorMenu) findViewById(R.id.menu);
 		mLLOne = (LinearLayout) findViewById(R.id.ll_history);
 		mLLTwo = (LinearLayout) findViewById(R.id.ll_collection);
 		mLLThree = (LinearLayout) findViewById(R.id.ll_exit);
 		mIvScan = (ImageView) findViewById(R.id.iv_scan);
-		view=LayoutInflater.from(this).inflate(R.layout.item_search, null);
-		mLvContent = (ListView) findViewById(R.id.lv_main_content);
-		mLvContent.addHeaderView(view);
-		mTVSearch=(TextView) view.findViewById(R.id.tv_search);
-		mTVExit=(TextView) findViewById(R.id.tv_exit_menu);
-		// 初始化ListView相关对象
-		List<Library> datas = new ArrayList<Library>();
-		datas.add(new Library());
-		datas.add(new Library());
-		datas.add(new Library());
-		datas.add(new Library());
-		datas.add(new Library());
-		mAdapter = new MainAdapter(this, datas);
-		mLvContent.setAdapter(mAdapter);
+		mTVExit = (TextView) findViewById(R.id.tv_exit_menu);
+
+		mFragments = new ArrayList<BaseFragment>();
+		mFragments.add(new MainFragment());
+		mFragments.add(new MessageFragment());
+		mViewPagerAdapter = new FragmentAdapter<BaseFragment>(
+				getSupportFragmentManager(), mFragments);
+		mVPMain.setAdapter(mViewPagerAdapter);
+		mVPMain.setOffscreenPageLimit(2);
+		mVPMain.setCurrentItem(0);
+		// mVPMain.setOnPageChangeListener(this);
 
 	}
-	
+
 	@Override
 	protected void onStart() {
 		super.onStart();
@@ -76,7 +89,7 @@ public class MainActivity extends BaseActivity implements OnItemClickListener {
 			mTVExit.setText(getResources().getString(R.string.menu_exit));
 		}
 	}
-	
+
 	@Override
 	protected void initEvents() {
 		mIvScan.setOnClickListener(this);
@@ -84,11 +97,9 @@ public class MainActivity extends BaseActivity implements OnItemClickListener {
 		mLLOne.setOnClickListener(this);
 		mLLTwo.setOnClickListener(this);
 		mLLThree.setOnClickListener(this);
-		mTVSearch.setOnClickListener(this);
-		mLvContent.setOnItemClickListener(this);
+		mRGMain.setOnCheckedChangeListener(this);
 	}
 
-	
 	@Override
 	public void onBackPressed() {
 		if (mCoordinatorMenu.isOpened()) {
@@ -118,15 +129,15 @@ public class MainActivity extends BaseActivity implements OnItemClickListener {
 			this.mCoordinatorMenu.closeMenu();
 			if (getHApplication().isUserLogin()) {
 				getHApplication().logout();
-			}else{
-				Intent intent=new Intent(this, LoginActivity.class);
+			} else {
+				Intent intent = new Intent(this, LoginActivity.class);
 				startActivity(intent);
 			}
 			updateMenu();
 			break;
-		case R.id.tv_search:
-			goActivity(SearchActivity.class, null);
-			break;
+		// case R.id.tv_search:
+		// goActivity(SearchActivity.class, null);
+		// break;
 		case R.id.iv_scan:
 			this.goActivityForResult(CaptureActivity.class, null,
 					Constants.RESULT_OK);
@@ -172,13 +183,7 @@ public class MainActivity extends BaseActivity implements OnItemClickListener {
 		}
 	}
 
-	@Override
-	public void onItemClick(AdapterView<?> parent, View view, int position,
-			long id) {
-		toastShow(position + "", Toast.LENGTH_SHORT);
-	}
 
-	
 	@Override
 	protected void onPause() {
 		super.onPause();
@@ -186,5 +191,22 @@ public class MainActivity extends BaseActivity implements OnItemClickListener {
 			this.mCoordinatorMenu.closeMenu();
 		}
 	}
-	
+
+	@Override
+	public void onCheckedChanged(RadioGroup group, int checkedId) {
+		switch (checkedId) {
+		case R.id.rb_library:
+			if (mVPMain.getCurrentItem()!=TAB_LIBRARY) {
+				mVPMain.setCurrentItem(TAB_LIBRARY);
+			}
+//			}
+			break;
+		case R.id.rb_msg:
+			if (mVPMain.getCurrentItem()!=TAB_MSG) {
+				mVPMain.setCurrentItem(TAB_MSG);
+			}
+			break;
+		}
+	}
+
 }

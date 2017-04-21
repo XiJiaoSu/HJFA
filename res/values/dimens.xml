@@ -5,4 +5,8 @@
     <dimen name="activity_vertical_margin">16dp</dimen>
 
     <dimen name="menu_text_size">18sp</dimen>
+    
+      <dimen name="bottom_tab_padding_drawable">10dip</dimen>
+    <dimen name="bottom_tab_padding_up">5.0dip</dimen>
+    <dimen name="bottom_tab_font_size">12dip</dimen>
 </resources>
