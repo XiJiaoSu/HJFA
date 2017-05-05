@@ -15,4 +15,8 @@ public class Constants {
 	//Activity 跳转请求码
 	public static final int RESULT_OK=1;//MainActivity与CaptureActivity之间的跳转编码
 	
+	//咨询列表请求地址
+	public static final String URL_MESSAGE = URL_PREFFIX + "/msg/list";
+	public static final int CODE_MESSAGE = 102;//消息列表
+	
 }
