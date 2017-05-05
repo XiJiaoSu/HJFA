@@ -32,7 +32,7 @@ public class MainActivity extends BaseActivity implements
 	private CoordinatorMenu mCoordinatorMenu;
 	// 菜单按钮
 	private LinearLayout mLLOne = null;
-	private LinearLayout mLLTwo = null;
+//	private LinearLayout mLLTwo = null;
 	private LinearLayout mLLThree = null;
 	private TextView mTVExit = null;
 	// 主题页面按钮
@@ -60,7 +60,7 @@ public class MainActivity extends BaseActivity implements
 		mHeadIv = (ImageView) findViewById(R.id.iv_head);
 		mCoordinatorMenu = (CoordinatorMenu) findViewById(R.id.menu);
 		mLLOne = (LinearLayout) findViewById(R.id.ll_history);
-		mLLTwo = (LinearLayout) findViewById(R.id.ll_collection);
+//		mLLTwo = (LinearLayout) findViewById(R.id.ll_collection);
 		mLLThree = (LinearLayout) findViewById(R.id.ll_exit);
 		mIvScan = (ImageView) findViewById(R.id.iv_scan);
 		mTVExit = (TextView) findViewById(R.id.tv_exit_menu);
@@ -95,7 +95,7 @@ public class MainActivity extends BaseActivity implements
 		mIvScan.setOnClickListener(this);
 		mHeadIv.setOnClickListener(this);
 		mLLOne.setOnClickListener(this);
-		mLLTwo.setOnClickListener(this);
+//		mLLTwo.setOnClickListener(this);
 		mLLThree.setOnClickListener(this);
 		mRGMain.setOnCheckedChangeListener(this);
 	}
@@ -122,9 +122,9 @@ public class MainActivity extends BaseActivity implements
 		case R.id.ll_history:
 			goActivity(HistoryOrderActivity.class, null);
 			break;
-		case R.id.ll_collection:
-			goActivity(CollectionActivity.class, null);
-			break;
+//		case R.id.ll_collection:
+//			goActivity(CollectionActivity.class, null);
+//			break;
 		case R.id.ll_exit:
 			this.mCoordinatorMenu.closeMenu();
 			if (getHApplication().isUserLogin()) {
