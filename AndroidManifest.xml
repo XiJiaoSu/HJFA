@@ -53,6 +53,8 @@
         <activity android:name="com.cs2013.hjfa.activity.CollectionActivity"></activity>
         <activity android:name="com.cs2013.hjfa.activity.HistoryOrderActivity"></activity>
         <activity android:name="com.cs2013.hjfa.activity.SearchActivity"></activity>
+        <activity android:name="com.cs2013.hjfa.activity.MegDetailsActivity"></activity>
+    	<activity android:name="com.cs2013.hjfa.activity.SearchActivity"></activity>
     </application>
 
 </manifest>
