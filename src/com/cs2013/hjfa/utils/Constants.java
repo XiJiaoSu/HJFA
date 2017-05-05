@@ -19,4 +19,11 @@ public class Constants {
 	public static final String URL_MESSAGE = URL_PREFFIX + "/msg/list";
 	public static final int CODE_MESSAGE = 102;//消息列表
 	
+	//图书馆信息请求地址
+	public static final String URL_LIBRARY_INFORMATION = URL_PREFFIX + "/library/list";
+	public static final int CODE_LIBRARY_INFORMATION = 103;//图书馆信息列表
+	
+	//图书馆位置请求地址
+	public static final String URL_LIBRARY_FLOOR_SEAT_INFORMATION = URL_PREFFIX + "/seat/level";
+	public static final int CODE_LIBRARY_FLOOR_SEAT_INFORMATION = 104;//图书馆座位信息列表
 }

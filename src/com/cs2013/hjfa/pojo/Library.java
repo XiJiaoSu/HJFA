@@ -9,6 +9,7 @@ public class Library {
 	private String id;
 	private String name;
 	private String address;
+	private String level;
 
 	public String getId() {
 		return id;
@@ -34,4 +35,14 @@ public class Library {
 		this.address = address;
 	}
 
+	public String getLevel() {
+		return level;
+	}
+
+	public void setLevel(String level) {
+		this.level = level;
+	}
+
+	
+	
 }

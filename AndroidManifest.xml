@@ -30,7 +30,7 @@
     <uses-permission android:name="android.permission.WAKE_LOCK" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.INTERNET" />
-    
+
     <application
         android:name="com.cs2013.hjfa.utils.HApplication"
         android:allowBackup="true"
@@ -46,15 +46,24 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name="com.cs2013.hjfa.activity.LoginActivity"></activity>
-        <activity android:name="com.cs2013.hjfa.activity.ChangePsdActivity"></activity>
-        <activity android:name="com.cs2013.hjfa.activity.RegisterActivity"></activity>
-        <activity android:name="com.xjtu.activity.CaptureActivity"></activity>
-        <activity android:name="com.cs2013.hjfa.activity.CollectionActivity"></activity>
-        <activity android:name="com.cs2013.hjfa.activity.HistoryOrderActivity"></activity>
-        <activity android:name="com.cs2013.hjfa.activity.SearchActivity"></activity>
-        <activity android:name="com.cs2013.hjfa.activity.MegDetailsActivity"></activity>
-    	<activity android:name="com.cs2013.hjfa.activity.SearchActivity"></activity>
+        <activity android:name="com.cs2013.hjfa.activity.LoginActivity" >
+        </activity>
+        <activity android:name="com.cs2013.hjfa.activity.ChangePsdActivity" >
+        </activity>
+        <activity android:name="com.cs2013.hjfa.activity.RegisterActivity" >
+        </activity>
+        <activity android:name="com.xjtu.activity.CaptureActivity" >
+        </activity>
+        <activity android:name="com.cs2013.hjfa.activity.CollectionActivity" >
+        </activity>
+        <activity android:name="com.cs2013.hjfa.activity.HistoryOrderActivity" >
+        </activity>
+        <activity android:name="com.cs2013.hjfa.activity.SearchActivity" >
+        </activity>
+        <activity android:name="com.cs2013.hjfa.activity.MegDetailsActivity" >
+        </activity>
+        <activity android:name="com.cs2013.hjfa.activity.LibrarySeatsActivity">
+        </activity>
     </application>
 
 </manifest>

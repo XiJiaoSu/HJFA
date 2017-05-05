@@ -28,36 +28,47 @@ public class MainAdapter extends BaseAdapter {
 
 	@Override
 	public int getCount() {
-		return this.datas==null?0:this.datas.size();
+		return this.datas == null ? 0 : this.datas.size();
 	}
 
 	@Override
 	public Object getItem(int position) {
-		return this.datas==null?null:this.datas.get(position);
+		return this.datas == null ? null : this.datas.get(position);
 	}
 
 	@Override
 	public long getItemId(int position) {
-		return this.datas==null?0:position;
+		return this.datas == null ? 0 : position;
 	}
 
 	@Override
 	public View getView(int position, View convertView, ViewGroup parent) {
-		HoldView holdView=null;
-		if (convertView==null) {
-			holdView=new HoldView();
-			convertView=inflater.inflate(R.layout.item_ativity_main, null);
-			holdView.mIvHead=(ImageView) convertView.findViewById(R.id.iv_mItem_icon);
-			holdView.mTvName=(TextView) convertView.findViewById(R.id.tv_mItem_name);
-			holdView.mTvContent=(TextView) convertView.findViewById(R.id.tv_mList_content);
+
+		HoldView holdView = null;
+
+		if (convertView == null) {
+			holdView = new HoldView();
+
+			convertView = inflater.inflate(R.layout.item_ativity_main, null);
+			holdView.mIvHead = (ImageView) convertView
+					.findViewById(R.id.iv_mItem_icon);
+			holdView.mTvName = (TextView) convertView
+					.findViewById(R.id.tv_mItem_name);
+			holdView.mTvContent = (TextView) convertView
+					.findViewById(R.id.tv_mList_content);
+
 			convertView.setTag(holdView);
-		}else{
-			holdView=(HoldView) convertView.getTag();
+		} else {
+			holdView = (HoldView) convertView.getTag();
 		}
+		
+		holdView.mTvName.setText(datas.get(position).getName());
+		holdView.mTvContent.setText(datas.get(position).getAddress());
+		
 		return convertView;
 	}
 
-	class HoldView{
+	class HoldView {
 		ImageView mIvHead;
 		TextView mTvName;
 		TextView mTvContent;
