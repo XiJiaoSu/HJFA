@@ -122,9 +122,6 @@ public class MainActivity extends BaseActivity implements
 		case R.id.ll_history:
 			goActivity(HistoryOrderActivity.class, null);
 			break;
-//		case R.id.ll_collection:
-//			goActivity(CollectionActivity.class, null);
-//			break;
 		case R.id.ll_exit:
 			this.mCoordinatorMenu.closeMenu();
 			if (getHApplication().isUserLogin()) {
