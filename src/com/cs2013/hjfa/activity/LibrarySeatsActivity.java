@@ -14,6 +14,7 @@ import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ArrayAdapter;
 import android.widget.GridView;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -40,6 +41,7 @@ public class LibrarySeatsActivity extends BaseActivity implements
 	private ArrayAdapter<String> mAdapterFloor;
 	private List<String> mListFloor;
 
+	private ImageView mIvBack;
 	private TextView mTvFloorTitle;// 图书馆楼层标题
 	private GridView mGvFloorSeats; // 楼层座位信息
 	private FloorSeatAdapter mSeatAdapter; //
@@ -57,7 +59,8 @@ public class LibrarySeatsActivity extends BaseActivity implements
 
 		mTvFloorTitle = (TextView) findViewById(R.id.tv_floor_title);
 		mGvFloorSeats = (GridView) findViewById(R.id.gv_floor_seat);
-
+		mIvBack=(ImageView) findViewById(R.id.iv_top_back2);
+		
 		Intent intent = getIntent();
 		libraryInfo = new Library();
 		libraryInfo.setId(intent.getStringExtra("library_id"));
@@ -102,16 +105,19 @@ public class LibrarySeatsActivity extends BaseActivity implements
 
 	@Override
 	protected void initEvents() {
+		mIvBack.setOnClickListener(this);
 		mLvLibraryFloor.setOnItemClickListener(this);
 		mGvFloorSeats.setOnItemClickListener(this);
 	}
 
 	@Override
-	public void onItemClick(AdapterView<?> arg0, View view, int position,
+	public void onItemClick(AdapterView<?> parent, View view, int position,
 			long arg3) {
 		Seat seat = null;
-		switch (view.getId()) {
+		Log.e("Log", "Item:"+view.getId());
+		switch (parent.getId()) {
 		case R.id.lv_libray_floor:
+			Log.e("Floor",position+"");
 			mTvFloorTitle
 					.setText(libraryInfo.getName() + (position + 1) + " 楼");
 			seat = new Seat();
@@ -124,6 +130,7 @@ public class LibrarySeatsActivity extends BaseActivity implements
 			break;
 		case R.id.gv_floor_seat:
 			seat = mListSeat.get(position);
+			Log.e("Seat",position+"");
 			if (!seat.getState().equals("0")) {
 				Toast.makeText(this, "该位置已被预定，请选择其他座位", Toast.LENGTH_LONG).show() ;
 			}else{
@@ -138,8 +145,15 @@ public class LibrarySeatsActivity extends BaseActivity implements
 	}
 
 	@Override
-	public void onClick(View arg0) {
-		// TODO Auto-generated method stub
+	public void onClick(View v) {
+		switch (v.getId()) {
+		case R.id.iv_top_back2:
+			finish();
+			break;
+
+		default:
+			break;
+		}
 
 	}
 
