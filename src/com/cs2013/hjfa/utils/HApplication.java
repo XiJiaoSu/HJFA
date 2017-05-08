@@ -12,7 +12,7 @@ import com.xjtu.activity.ZXingLibrary;
 public class HApplication extends Application {
 
 	private static HApplication application = null;
-
+	private User user=null;
 	private  boolean isLogin = false;// 用于判断用户是否登陆
 
 	@Override
@@ -40,6 +40,7 @@ public class HApplication extends Application {
 	}
 
 	public void logout(){
+		this.user=null;
 		this.isLogin=false;
 	}
 	
@@ -49,8 +50,14 @@ public class HApplication extends Application {
 	 * @param user
 	 */
 	public void loginSuccess(User user) {
-		if (SharedPreferencesUtils.saveLoginInfo(user, this))
+		if (SharedPreferencesUtils.saveLoginInfo(user, this)){
 			this.isLogin = true;
+			this.user=user;
+		}
+	}
+
+	public User getUser() {
+		return user;
 	}
 
 }

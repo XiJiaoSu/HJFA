@@ -5,5 +5,11 @@
     android:orientation="vertical" >
 
     <include layout="@layout/head_with_back" />
-
+	
+    <ListView 
+        android:id="@+id/lv_history"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        ></ListView>
+    
 </LinearLayout>
