@@ -80,14 +80,12 @@ public class MessageFragment extends BaseFragment implements OnItemClickListener
 		mLvMsg=(ListView) view.findViewById(R.id.lv_msg);
 		messages = new ArrayList<Message>();
 		messgeadapter = new MessgeAdapter(messages, getActivity());
-		connServer(Constants.URL_MESSAGE, null, Constants.CODE_MESSAGE);
-		
 		
 	}
 	@Override
 	public void onResume() {
-		// TODO Auto-generated method stub
 		super.onResume();
+		connServer(Constants.URL_MESSAGE, null, Constants.CODE_MESSAGE);
 		//connServer(Constants.URL_MESSAGE, null, Constants.CODE_MESSAGE);
 	}
 
@@ -97,6 +95,7 @@ public class MessageFragment extends BaseFragment implements OnItemClickListener
 		case Constants.CODE_MESSAGE:
 			Log.e("Log", "success");
 			if (netMessage.size() != 0 && msg == null) {
+				messages.clear();
 				messages.addAll(netMessage);
 				messgeadapter.notifyDataSetChanged();
 			}

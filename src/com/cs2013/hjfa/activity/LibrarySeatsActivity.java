@@ -124,11 +124,14 @@ public class LibrarySeatsActivity extends BaseActivity implements
 
 			@Override
 			public void onClick(DialogInterface dialog, int arg1) {
-				Order o = new Order();
-				o.setSid(s.getId());
-				o.setUid(getHApplication().getUser().getStuId());
-				String json = new Gson().toJson(o);
-				connServer(Constants.URL_LIBRARY_FLOOR_SEAT_ORDER, json,
+				com.google.gson.JsonObject jsonObj=new com.google.gson.JsonObject();
+				jsonObj.addProperty("uid", getHApplication().getUser().getId());
+				jsonObj.addProperty("sid", s.getId());
+//				Order o = new Order();
+//				o.setSid(s.getId());
+//				o.setUid(getHApplication().getUser().getStuId());
+//				String json = new Gson().toJson(o);
+				connServer(Constants.URL_LIBRARY_FLOOR_SEAT_ORDER, jsonObj.toString(),
 						Constants.CODE_LIBRARY_FLOOR_SEAT_ORDER);
 				dialog.dismiss();
 			}

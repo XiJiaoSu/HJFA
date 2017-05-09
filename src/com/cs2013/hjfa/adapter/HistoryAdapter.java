@@ -5,6 +5,7 @@ import java.util.List;
 import com.cs2013.hjfa.R;
 import com.cs2013.hjfa.pojo.Library;
 import com.cs2013.hjfa.pojo.Order;
+import com.cs2013.hjfa.utils.DateUtil;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -53,8 +54,8 @@ public class HistoryAdapter extends BaseAdapter{
 		}else{
 			holder=(HolderHistory) convertView.getTag();
 		}
-		holder.tvName.setText(datas.get(position).getName());
-		holder.tvTime.setText(datas.get(position).getOrderTime()+"");
+		holder.tvName.setText("订单编号:"+datas.get(position).getName());
+		holder.tvTime.setText("预定时间:"+DateUtil.getTime2(datas.get(position).getOrderTime()));
 		int state=datas.get(position).getState();
 		String res="完成";
 		if(state!=1){
