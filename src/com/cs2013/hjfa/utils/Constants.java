@@ -27,6 +27,10 @@ public class Constants {
 	public static final String URL_LIBRARY_FLOOR_SEAT_INFORMATION = URL_PREFFIX + "/seat/level";
 	public static final int CODE_LIBRARY_FLOOR_SEAT_INFORMATION = 104;//图书馆座位信息列表
 	
+	//图书馆座位预定地址
+	public static final String URL_LIBRARY_FLOOR_SEAT_ORDER = URL_PREFFIX + "/order/add";
+	public static final int CODE_LIBRARY_FLOOR_SEAT_ORDER = 105;//图书馆座位信息列表
+	
 	public static final String URL_ORDER_HISTORY=URL_PREFFIX+"/order/list";//查询自己的订单
 	public static final int CODE_ORDER_HISTORY=108;
 	

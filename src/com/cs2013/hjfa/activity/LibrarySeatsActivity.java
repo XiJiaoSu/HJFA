@@ -2,9 +2,13 @@ package com.cs2013.hjfa.activity;
 
 import java.lang.reflect.Type;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
-import android.app.Dialog;
+import android.app.AlertDialog;
+import android.app.AlertDialog.Builder;
+import android.content.DialogInterface;
+import android.content.DialogInterface.OnClickListener;
 import android.content.Intent;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
@@ -22,8 +26,10 @@ import android.widget.Toast;
 import com.cs2013.hjfa.R;
 import com.cs2013.hjfa.adapter.FloorSeatAdapter;
 import com.cs2013.hjfa.pojo.Library;
+import com.cs2013.hjfa.pojo.Order;
 import com.cs2013.hjfa.pojo.Seat;
 import com.cs2013.hjfa.pojo.json.JsonList;
+import com.cs2013.hjfa.pojo.json.JsonObject;
 import com.cs2013.hjfa.utils.Constants;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -46,6 +52,9 @@ public class LibrarySeatsActivity extends BaseActivity implements
 	private GridView mGvFloorSeats; // 楼层座位信息
 	private FloorSeatAdapter mSeatAdapter; //
 	private List<Seat> mListSeat;
+	
+	private int position;
+	private Order order;
 
 	@Override
 	protected void initViews() {
@@ -90,16 +99,10 @@ public class LibrarySeatsActivity extends BaseActivity implements
 
 		// 没有楼层 则没有位置
 		if (mListFloor.size() == 0) {
-			// return;
+			 return;
 		}
 		// 网上获取信息
-		mTvFloorTitle.setText(libraryInfo.getName() + "1 楼");
-		Seat seat = new Seat();
-		seat.setPid(libraryInfo.getId());
-		seat.setLevel("" + 1);
-		String json = new Gson().toJson(seat);
-		connServer(Constants.URL_LIBRARY_FLOOR_SEAT_INFORMATION, json,
-				Constants.CODE_LIBRARY_FLOOR_SEAT_INFORMATION);
+		getFloorSeats(1);
 
 	}
 
@@ -109,34 +112,75 @@ public class LibrarySeatsActivity extends BaseActivity implements
 		mLvLibraryFloor.setOnItemClickListener(this);
 		mGvFloorSeats.setOnItemClickListener(this);
 	}
+	
+	/**
+	 * 预定提示对话框
+	 */
+	private void orderDialog(final Seat s) {
+		AlertDialog.Builder builder = new Builder(this);
+		builder.setTitle("提示");
+		builder.setMessage("确定预定吗？");
+		builder.setPositiveButton("确定", new OnClickListener() {
+
+			@Override
+			public void onClick(DialogInterface dialog, int arg1) {
+				Order o = new Order();
+				o.setSid(s.getId());
+				o.setUid(getHApplication().getUser().getStuId());
+				String json = new Gson().toJson(o);
+				connServer(Constants.URL_LIBRARY_FLOOR_SEAT_ORDER, json,
+						Constants.CODE_LIBRARY_FLOOR_SEAT_ORDER);
+				dialog.dismiss();
+			}
+		});
+
+		builder.setNegativeButton("取消", new OnClickListener() {
+
+			@Override
+			public void onClick(DialogInterface dialog, int arg1) {
+				dialog.dismiss();
+			}
+		});
+		builder.create().show();
+	}
+
+	private void getFloorSeats(int localtion) {
+		
+		mTvFloorTitle.setText(libraryInfo.getName() + localtion + " 楼");
+		Seat s = new Seat();
+		s.setPid(libraryInfo.getId());
+		s.setLevel("" + localtion);
+		String json = new Gson().toJson(s);
+		connServer(Constants.URL_LIBRARY_FLOOR_SEAT_INFORMATION, json,
+				Constants.CODE_LIBRARY_FLOOR_SEAT_INFORMATION);
+	}
+
+	private void orderFloorSeat(int localtion) {
+		if (!getHApplication().isUserLogin()) {
+			Intent intent = new Intent(this, LoginActivity.class);
+			startActivity(intent);
+		} else {
+			Seat s = mListSeat.get(localtion);
+			if (!s.getState().equals("0")) {
+				toastShow("该位置已被预定，请选择其他座位。", Toast.LENGTH_SHORT);
+			} else {
+				this.position = localtion;
+				orderDialog(s);
+			}
+		}
+	}
 
 	@Override
 	public void onItemClick(AdapterView<?> parent, View view, int position,
 			long arg3) {
-		Seat seat = null;
 		Log.e("Log", "Item:"+view.getId());
 		switch (parent.getId()) {
 		case R.id.lv_libray_floor:
-			Log.e("Floor",position+"");
-			mTvFloorTitle
-					.setText(libraryInfo.getName() + (position + 1) + " 楼");
-			seat = new Seat();
-			seat.setPid(libraryInfo.getId());
-			seat.setLevel("" + (position + 1));
-			String json = new Gson().toJson(seat);
-			connServer(Constants.URL_LIBRARY_FLOOR_SEAT_INFORMATION, json,
-					Constants.CODE_LIBRARY_FLOOR_SEAT_INFORMATION);
+			getFloorSeats(position + 1);
 			mDlLibrary.closeDrawer(GravityCompat.END);
 			break;
 		case R.id.gv_floor_seat:
-			seat = mListSeat.get(position);
-			Log.e("Seat",position+"");
-			if (!seat.getState().equals("0")) {
-				Toast.makeText(this, "该位置已被预定，请选择其他座位", Toast.LENGTH_LONG).show() ;
-			}else{
-				Dialog d = new Dialog(this);
-				//进行座位预订操作
-			}
+			orderFloorSeat(position);
 			break;
 		default:
 			break;
@@ -180,7 +224,22 @@ public class LibrarySeatsActivity extends BaseActivity implements
 				msg = object.getMsg();
 			}
 			break;
-
+		case Constants.CODE_LIBRARY_FLOOR_SEAT_ORDER:
+			// 将JSON数据转为对象，可以使用泛型
+			objectType = new TypeToken<JsonObject<Order>>() {
+			}.getType();
+			// 开始转型
+			JsonObject<Order> objectOrder = gson.fromJson(res, objectType);
+			Log.e("Log", objectOrder.getCode() + "");
+			Log.e("Log", objectOrder.getMsg() + "");
+			if (objectOrder.getCode() == Constants.JSON_OK) {// JSON数据中返回的数据正常
+				order = objectOrder.getResult();// 获取对象数据
+				msg = null;
+			} else {
+				msg = objectOrder.getMsg();
+				order = null;
+			}
+			break;
 		default:
 			break;
 		}
@@ -191,12 +250,24 @@ public class LibrarySeatsActivity extends BaseActivity implements
 	public void successResult(int code) {
 		switch (code) {
 		case Constants.CODE_LIBRARY_FLOOR_SEAT_INFORMATION:
-			Log.e("leeh", "success");
-			if (mListSeat != null && mListSeat.size() != 0 && msg == null) {
+			if (mListSeat != null && msg == null) {
 				Log.e("leeh", "success");
 				mSeatAdapter.notifyDataSetChanged();
 			}
 			toastShow(msg, Toast.LENGTH_SHORT);
+			break;
+		case Constants.CODE_LIBRARY_FLOOR_SEAT_ORDER:
+			Log.e("leeh", "success");
+			if (order != null && msg == null) {
+				Log.e("leeh", "success");
+				mListSeat.get(position).setState("1");
+				mSeatAdapter.notifyDataSetChanged();
+				Date d = new Date(order.getOrderTime() + 1000 * 10);
+					
+				toastShow("预定成功!" + d.toString() + "之前扫码确定。" , Toast.LENGTH_SHORT);
+			} else {
+				toastShow(msg, Toast.LENGTH_SHORT);
+			}
 			break;
 		}
 	}
@@ -205,7 +276,12 @@ public class LibrarySeatsActivity extends BaseActivity implements
 	public void errorResult(int code) {
 		switch (code) {
 		case Constants.CODE_LIBRARY_FLOOR_SEAT_INFORMATION:
-			if (mListSeat != null && mListSeat.size() != 0 && msg == null) {
+			if (mListSeat != null) {
+				toastShow(msg, Toast.LENGTH_SHORT);
+			}
+			break;
+		case Constants.CODE_LIBRARY_FLOOR_SEAT_ORDER:
+			if (order != null) {
 				toastShow(msg, Toast.LENGTH_SHORT);
 			}
 			break;
