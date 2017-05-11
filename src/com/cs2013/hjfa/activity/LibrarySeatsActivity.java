@@ -43,11 +43,13 @@ public class LibrarySeatsActivity extends BaseActivity implements
 	private TextView mTvLibraryAddress; // 图书馆地址
 	private ListView mLvLibraryFloor; // 图书馆楼层
 	private Library libraryInfo;
+	private ImageView mIvBack;
+	private ImageView mIvMnue;
 
 	private ArrayAdapter<String> mAdapterFloor;
 	private List<String> mListFloor;
 
-	private ImageView mIvBack;
+	
 	private TextView mTvFloorTitle;// 图书馆楼层标题
 	private GridView mGvFloorSeats; // 楼层座位信息
 	private FloorSeatAdapter mSeatAdapter; //
@@ -68,7 +70,8 @@ public class LibrarySeatsActivity extends BaseActivity implements
 
 		mTvFloorTitle = (TextView) findViewById(R.id.tv_floor_title);
 		mGvFloorSeats = (GridView) findViewById(R.id.gv_floor_seat);
-		mIvBack=(ImageView) findViewById(R.id.iv_top_back2);
+		mIvBack =(ImageView) findViewById(R.id.iv_top_back2);
+		mIvMnue =(ImageView) findViewById(R.id.iv_top_menu);
 		
 		Intent intent = getIntent();
 		libraryInfo = new Library();
@@ -109,6 +112,7 @@ public class LibrarySeatsActivity extends BaseActivity implements
 	@Override
 	protected void initEvents() {
 		mIvBack.setOnClickListener(this);
+		mIvMnue.setOnClickListener(this);
 		mLvLibraryFloor.setOnItemClickListener(this);
 		mGvFloorSeats.setOnItemClickListener(this);
 	}
@@ -197,7 +201,9 @@ public class LibrarySeatsActivity extends BaseActivity implements
 		case R.id.iv_top_back2:
 			finish();
 			break;
-
+		case R.id.iv_top_menu:
+			mDlLibrary.openDrawer(GravityCompat.END);
+			break;
 		default:
 			break;
 		}

@@ -23,6 +23,13 @@
         <item name="android:layout_centerVertical">true</item>
         <item name="android:layout_marginLeft">6dp</item>
     </style>
+   
+   <style name="topRightButton">
+        <item name="android:layout_width">20dp</item>
+        <item name="android:layout_height">20dp</item>
+        <item name="android:layout_gravity">right|center</item>
+        <item name="android:layout_marginRight">10dp</item>
+    </style>
 
     <style name="topBar">
         <item name="android:background">@color/main_bg</item>

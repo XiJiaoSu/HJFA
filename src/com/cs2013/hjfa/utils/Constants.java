@@ -1,8 +1,8 @@
 package com.cs2013.hjfa.utils;
 
 public class Constants {
-	private static final String URL_PREFFIX = "http://192.168.56.1:8080/library";
-//	private static final String URL_PREFFIX = "http://118.89.106.93:8080/library";
+	//private static final String URL_PREFFIX = "http://192.168.56.1:8080/library";
+	private static final String URL_PREFFIX = "http://118.89.106.93:8080/library";
 	public static final String URL_LOGIN = URL_PREFFIX + "/user/login";// 用户登陆的接口
 	public static final int STATE_OK = 0;// 请求网络成功
 	public static final int STATE_ERROR = -1000;// 请求网络失败
