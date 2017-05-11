@@ -100,10 +100,13 @@ public class LibrarySeatsActivity extends BaseActivity implements
 		mSeatAdapter = new FloorSeatAdapter(this, mListSeat);
 		mGvFloorSeats.setAdapter(mSeatAdapter);
 
+		mTvFloorTitle.setText(libraryInfo.getName());
+		
 		// 没有楼层 则没有位置
 		if (mListFloor.size() == 0) {
 			 return;
 		}
+		
 		// 网上获取信息
 		getFloorSeats(1);
 
