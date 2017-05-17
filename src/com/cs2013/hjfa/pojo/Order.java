@@ -11,11 +11,19 @@ public class Order {
 	private String uid;//用户id
 	private String sid;//座位id
 	private int state;//预定状态,0 未确认,1确认
-	
+	private Seat seat;
 	private String description;//描述信息
 
 	public String getId() {
 		return id;
+	}
+
+	public Seat getSeat() {
+		return seat;
+	}
+
+	public void setSeat(Seat seat) {
+		this.seat = seat;
 	}
 
 	public void setId(String id) {
@@ -82,8 +90,8 @@ public class Order {
 	public String toString() {
 		return "Order [id=" + id + ", name=" + name + ", orderTime="
 				+ orderTime + ", confirmTime=" + confirmTime + ", uid=" + uid
-				+ ", sid=" + sid + ", state=" + state + ", description="
-				+ description + "]";
+				+ ", sid=" + sid + ", state=" + state + ", seat=" + seat
+				+ ", description=" + description + "]";
 	}
-	
+
 }

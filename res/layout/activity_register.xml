@@ -1,56 +1,73 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent" >
-     <EditText
-        android:id="@+id/et_username"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="85dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginRight="8dp"
-        android:hint="请输入学号"
-        android:ems="10" />
+    android:layout_height="match_parent"
+    android:background="@android:color/white" >
 
-    
+    <include
+        android:id="@+id/lay_head"
+        layout="@layout/head_with_back" />
 
     <EditText
         android:id="@+id/et_name"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:ems="10"
-        android:layout_marginTop="12dp"
+        android:layout_below="@+id/lay_head"
         android:layout_marginLeft="8dp"
         android:layout_marginRight="8dp"
-        android:layout_below="@id/et_username"
-        android:inputType="textPassword" 
+        android:layout_marginTop="12dp"
+        android:ems="10"
         android:hint="请输入姓名"
-        />
-     <EditText
-        android:id="@+id/et_twopwd"
+        android:inputType="textPassword" />
+
+      <EditText
+        android:id="@+id/et_email"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:ems="10"
-        android:layout_marginTop="12dp"
+        android:layout_below="@id/et_name"
         android:layout_marginLeft="8dp"
         android:layout_marginRight="8dp"
-        android:layout_below="@id/et_name"
-        android:inputType="textPassword" 
-        android:hint="请输入密码"
+        android:layout_marginTop="12dp"
+        android:ems="10"
+        android:hint="请输入邮箱"
+        android:inputType="textEmailAddress"
         />
+    
+    <EditText
+        android:id="@+id/et_reg_pwd"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/et_email"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginTop="12dp"
+        android:ems="10"
+        android:hint="请输入密码"
+        android:inputType="textPassword" />
+
+    <EditText
+        android:id="@+id/et_sure_pwd"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/et_reg_pwd"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginTop="12dp"
+        android:ems="10"
+        android:hint="请确认密码"
+        android:inputType="textPassword" />
 
     <Button
-        android:id="@+id/bt_change"
+        android:id="@+id/bt_register"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="26dp"
+        android:layout_below="@id/et_sure_pwd"
         android:layout_marginLeft="8dp"
         android:layout_marginRight="8dp"
-        android:background="@color/colorRed"
-        android:paddingTop="8dp"
+        android:layout_marginTop="26dp"
+        android:background="@color/main_bg"
         android:paddingBottom="8dp"
-        android:layout_below="@id/et_twopwd"
+        android:paddingTop="8dp"
         android:text="注册" />
-    
 
 </RelativeLayout>

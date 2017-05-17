@@ -10,6 +10,7 @@ import android.app.AlertDialog.Builder;
 import android.content.DialogInterface;
 import android.content.DialogInterface.OnClickListener;
 import android.content.Intent;
+import android.provider.ContactsContract.Contacts.Data;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.util.Log;
@@ -31,6 +32,7 @@ import com.cs2013.hjfa.pojo.Seat;
 import com.cs2013.hjfa.pojo.json.JsonList;
 import com.cs2013.hjfa.pojo.json.JsonObject;
 import com.cs2013.hjfa.utils.Constants;
+import com.cs2013.hjfa.utils.DateUtil;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
@@ -134,10 +136,6 @@ public class LibrarySeatsActivity extends BaseActivity implements
 				com.google.gson.JsonObject jsonObj=new com.google.gson.JsonObject();
 				jsonObj.addProperty("uid", getHApplication().getUser().getId());
 				jsonObj.addProperty("sid", s.getId());
-//				Order o = new Order();
-//				o.setSid(s.getId());
-//				o.setUid(getHApplication().getUser().getStuId());
-//				String json = new Gson().toJson(o);
 				connServer(Constants.URL_LIBRARY_FLOOR_SEAT_ORDER, jsonObj.toString(),
 						Constants.CODE_LIBRARY_FLOOR_SEAT_ORDER);
 				dialog.dismiss();
@@ -183,7 +181,6 @@ public class LibrarySeatsActivity extends BaseActivity implements
 	@Override
 	public void onItemClick(AdapterView<?> parent, View view, int position,
 			long arg3) {
-		Log.e("Log", "Item:"+view.getId());
 		switch (parent.getId()) {
 		case R.id.lv_libray_floor:
 			getFloorSeats(position + 1);
@@ -215,7 +212,7 @@ public class LibrarySeatsActivity extends BaseActivity implements
 
 	@Override
 	public void onResponse(String res, int code) {
-		Log.e("Log", res);
+//		Log.e("Log", res);
 		Gson gson = new Gson();// 创建Gson对象，用于解析返回的json字符串
 		Type objectType = null;
 		switch (code) {
@@ -225,9 +222,6 @@ public class LibrarySeatsActivity extends BaseActivity implements
 			}.getType();
 			// 开始转型
 			JsonList<Seat> object = gson.fromJson(res, objectType);
-			Log.e("Log", object.getCode() + "code");
-			Log.e("Log", object.getMsg() + "meg");
-
 			if (object.getCode() == 200) {// JSON数据中返回的数据正常
 				mListSeat.clear();
 				mListSeat.addAll(object.getResult());// 获取对象数据
@@ -241,9 +235,8 @@ public class LibrarySeatsActivity extends BaseActivity implements
 			objectType = new TypeToken<JsonObject<Order>>() {
 			}.getType();
 			// 开始转型
+			Log.e("LogCODE_LIBRARY_FLOOR_SEAT_ORDER", res);
 			JsonObject<Order> objectOrder = gson.fromJson(res, objectType);
-			Log.e("Log", objectOrder.getCode() + "");
-			Log.e("Log", objectOrder.getMsg() + "");
 			if (objectOrder.getCode() == Constants.JSON_OK) {// JSON数据中返回的数据正常
 				order = objectOrder.getResult();// 获取对象数据
 				msg = null;
@@ -263,20 +256,17 @@ public class LibrarySeatsActivity extends BaseActivity implements
 		switch (code) {
 		case Constants.CODE_LIBRARY_FLOOR_SEAT_INFORMATION:
 			if (mListSeat != null && msg == null) {
-				Log.e("leeh", "success");
 				mSeatAdapter.notifyDataSetChanged();
 			}
-			toastShow(msg, Toast.LENGTH_SHORT);
 			break;
 		case Constants.CODE_LIBRARY_FLOOR_SEAT_ORDER:
-			Log.e("leeh", "success");
-			if (order != null && msg == null) {
+			Log.e("leeh", "success----order");
+			if (msg == null) {
 				Log.e("leeh", "success");
 				mListSeat.get(position).setState("1");
 				mSeatAdapter.notifyDataSetChanged();
-				Date d = new Date(order.getOrderTime() + 1000 * 10);
-					
-				toastShow("预定成功!" + d.toString() + "之前扫码确定。" , Toast.LENGTH_SHORT);
+				String time=DateUtil.getTime3(order.getOrderTime() + 1000 * 10);
+				toastShow("预定成功!请在 " +time + " 之前扫码确定" , Toast.LENGTH_SHORT);
 			} else {
 				toastShow(msg, Toast.LENGTH_SHORT);
 			}
@@ -293,7 +283,7 @@ public class LibrarySeatsActivity extends BaseActivity implements
 			}
 			break;
 		case Constants.CODE_LIBRARY_FLOOR_SEAT_ORDER:
-			if (order != null) {
+			if (msg != null) {
 				toastShow(msg, Toast.LENGTH_SHORT);
 			}
 			break;

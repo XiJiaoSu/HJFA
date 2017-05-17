@@ -33,7 +33,7 @@ public class LoginActivity extends BaseActivity {
 	private EditText mETPwd = null;
 	private Button mBtLogin = null;
 	private Button mBtExit = null;
-	private TextView mTvChangpsd, mTvRegister;
+	private TextView  mTvRegister;
 
 	@Override
 	protected void initViews() {
@@ -42,7 +42,6 @@ public class LoginActivity extends BaseActivity {
 		mETUserName = (EditText) findViewById(R.id.et_username);
 		mETPwd = (EditText) findViewById(R.id.et_pwd);
 		mBtLogin = (Button) findViewById(R.id.bt_login);
-		mTvChangpsd = (TextView) findViewById(R.id.tv_forgetpsd);
 		mTvRegister = (TextView) findViewById(R.id.tv_newuser);
 		mBtExit=(Button) findViewById(R.id.bt_exit);
 		if (getIntent() != null) {
@@ -55,7 +54,6 @@ public class LoginActivity extends BaseActivity {
 	@Override
 	protected void initEvents() {
 		mBtLogin.setOnClickListener(this);
-		mTvChangpsd.setOnClickListener(this);
 		mTvRegister.setOnClickListener(this);
 		mBtExit.setOnClickListener(this);
 	}
@@ -70,13 +68,10 @@ public class LoginActivity extends BaseActivity {
 			String json = new Gson().toJson(u);
 			connServer(Constants.URL_LOGIN, json, Constants.CODE_LOGIN);
 			break;
-		case R.id.tv_forgetpsd:
-			intent = new Intent(this, ChangePsdActivity.class);
-			startActivity(intent);
-			break;
 		case R.id.tv_newuser:
 			intent = new Intent(this, RegisterActivity.class);
 			startActivity(intent);
+			finish();
 			break;
 		case R.id.bt_exit:
 			finish();

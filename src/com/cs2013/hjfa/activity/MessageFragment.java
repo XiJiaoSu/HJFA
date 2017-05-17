@@ -35,7 +35,7 @@ public class MessageFragment extends BaseFragment implements OnItemClickListener
 	
 	@Override
 	public void onResponse(String res, int code) {
-		Log.e("Log", res);
+//		Log.e("Log", res);
 		Gson gson = new Gson();// 创建Gson对象，用于解析返回的json字符串
 		Type objectType = null;
 		switch (code) {

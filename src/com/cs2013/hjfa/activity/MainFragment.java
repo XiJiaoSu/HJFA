@@ -64,7 +64,7 @@ public class MainFragment extends BaseFragment implements OnItemClickListener,
 
 	@Override
 	public void onResponse(String res, int code) {
-		Log.e("Log", res);
+//		Log.e("Log", res);
 		Gson gson = new Gson();// 创建Gson对象，用于解析返回的json字符串
 		Type objectType = null;
 		switch (code) {
@@ -96,7 +96,7 @@ public class MainFragment extends BaseFragment implements OnItemClickListener,
 	public void successResult(int code) {
 		switch (code) {
 		case Constants.CODE_LIBRARY_INFORMATION:
-			Log.e("leeh", "success");
+//			Log.e("leeh", "success");
 			if (libraryList != null && libraryList.size() != 0 && msg == null) {
 				Log.e("leeh", "success");
 				mAdapter.notifyDataSetChanged();
@@ -134,8 +134,8 @@ public class MainFragment extends BaseFragment implements OnItemClickListener,
 		Intent intent = null;
 		switch (v.getId()) {
 		case R.id.tv_search:
-			intent = new Intent(getActivity(), SearchActivity.class);
-			startActivity(intent);
+//			intent = new Intent(getActivity(), SearchActivity.class);
+//			startActivity(intent);
 			break;
 
 		default:

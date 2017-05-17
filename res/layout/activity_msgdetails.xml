@@ -7,6 +7,10 @@
     <TextView 
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        android:text="asdf"
+        android:textColor="@color/main_bg"
         android:id="@+id/tv_messaged_title"
         />
 	<TextView 
@@ -14,6 +18,8 @@
 	    android:layout_height="wrap_content"
 	    android:id="@+id/tv_messaged_content"
 	    android:layout_marginTop="10dp"
+	    android:textSize="15sp"
+	    android:text="asdf"
 	    android:layout_below="@id/tv_messaged_title"
 	    />
 	<TextView 
@@ -23,6 +29,8 @@
 	    android:layout_marginTop="10dp"
 	    android:layout_below="@id/tv_messaged_content"
 	    android:layout_alignParentRight="true"
+	    android:textColor="@color/main_bg"
+	    android:text="asdf"
 	    />
 	<ImageView 
 	    android:layout_width="wrap_content"

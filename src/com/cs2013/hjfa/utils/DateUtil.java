@@ -21,7 +21,16 @@ public class DateUtil {
 	{
 		Log.e("Log ---",time+"");
 		Date date = new Date(time);
-		SimpleDateFormat sdf2 = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		SimpleDateFormat sdf2 = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+		sdf2.setTimeZone(TimeZone.getTimeZone("Asia/Shanghai"));
+		return sdf2.format(date);
+	}
+	
+	public static String getTime3(long time)
+	{
+		Log.e("Log ---",time+"");
+		Date date = new Date(time);
+		SimpleDateFormat sdf2 = new SimpleDateFormat("HH:mm");
 		sdf2.setTimeZone(TimeZone.getTimeZone("Asia/Shanghai"));
 		return sdf2.format(date);
 	}

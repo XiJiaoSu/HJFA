@@ -47,26 +47,35 @@ public class HistoryAdapter extends BaseAdapter{
 		if (convertView==null) {
 			holder=new HolderHistory();
 			convertView=inflater.inflate(R.layout.item_history, null);
-			holder.tvName=(TextView) convertView.findViewById(R.id.tv_h_name);
+			holder.tvOName=(TextView) convertView.findViewById(R.id.tv_o_id);
+			holder.tvSName=(TextView) convertView.findViewById(R.id.tv_s_name);
 			holder.tvTime=(TextView) convertView.findViewById(R.id.tv_h_time);
 			holder.tvState=(TextView) convertView.findViewById(R.id.tv_order_state);
+			holder.tvLName=(TextView) convertView.findViewById(R.id.tv_l_name);
+			holder.tvSLevel=(TextView) convertView.findViewById(R.id.tv_s_level);
 			convertView.setTag(holder);
 		}else{
 			holder=(HolderHistory) convertView.getTag();
 		}
-		holder.tvName.setText("订单编号:"+datas.get(position).getName());
-		holder.tvTime.setText("预定时间:"+DateUtil.getTime2(datas.get(position).getOrderTime()));
+		holder.tvSLevel.setText(datas.get(position).getSeat().getLevel()+"\t层");
+		holder.tvLName.setText(datas.get(position).getSeat().getLibrary().getName());
+		holder.tvOName.setText(datas.get(position).getId());
+		holder.tvTime.setText(DateUtil.getTime2(datas.get(position).getOrderTime()));
+		holder.tvSName.setText(datas.get(position).getSeat().getName());
 		int state=datas.get(position).getState();
 		String res="完成";
-		if(state!=1){
+		if(state==0){
 			long c=datas.get(position).getConfirmTime();
 			long o=datas.get(position).getOrderTime();
 			if (c<o) {
-				res="失效";
+				res="待确定";
 			}else{
-				res="未确定";
+				res="失效";
 			}
-			
+		}else if(state==1){
+			res="使用中";
+		}else{
+			res="完成";
 		}
 		holder.tvState.setText(res);
 		return convertView;
@@ -74,7 +83,10 @@ public class HistoryAdapter extends BaseAdapter{
 
 	
 	class HolderHistory{
-		TextView tvName;
+		TextView tvSName;
+		TextView tvSLevel;
+		TextView tvLName;
+		TextView tvOName;
 		TextView tvTime;
 		TextView tvState;
 		

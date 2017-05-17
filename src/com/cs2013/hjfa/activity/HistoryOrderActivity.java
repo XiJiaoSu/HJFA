@@ -20,11 +20,12 @@ import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 public class HistoryOrderActivity extends BaseActivity implements OnItemClickListener {
 	private ImageView mIVBack = null;
-	
+	private TextView mTvTitle=null;
 	private ListView mLvHistory;
 	private HistoryAdapter adapter=null;
 
@@ -82,12 +83,13 @@ public class HistoryOrderActivity extends BaseActivity implements OnItemClickLis
 	protected void initViews() {
 		setContentView(R.layout.activity_history);
 		mIVBack = (ImageView) findViewById(R.id.iv_top_back);
+		mTvTitle=(TextView) findViewById(R.id.tv_top_title);
 		mLvHistory=(ListView) findViewById(R.id.lv_history);
 		
 		datas=new ArrayList<Order>();
 		adapter=new HistoryAdapter(HistoryOrderActivity.this, datas);
 		mLvHistory.setAdapter(adapter);
-		
+		mTvTitle.setText("Ô¤Ô¼ÀúÊ·");
 	}
 
 	@Override
@@ -96,6 +98,7 @@ public class HistoryOrderActivity extends BaseActivity implements OnItemClickLis
 		case Constants.CODE_ORDER_HISTORY:
 			if (orders!=null&&msg==null) {
 				datas.clear();
+				Log.e("LOg",orders.get(0).toString());
 				datas.addAll(orders);
 				adapter.notifyDataSetChanged();
 			}

@@ -50,13 +50,12 @@ public class MainAdapter extends BaseAdapter {
 			holdView = new HoldView();
 
 			convertView = inflater.inflate(R.layout.item_ativity_main, null);
-			holdView.mIvHead = (ImageView) convertView
-					.findViewById(R.id.iv_mItem_icon);
+//			holdView.mIvHead = (ImageView) convertView
+//					.findViewById(R.id.iv_mItem_icon);
 			holdView.mTvName = (TextView) convertView
 					.findViewById(R.id.tv_mItem_name);
 			holdView.mTvContent = (TextView) convertView
 					.findViewById(R.id.tv_mList_content);
-
 			convertView.setTag(holdView);
 		} else {
 			holdView = (HoldView) convertView.getTag();
@@ -69,7 +68,7 @@ public class MainAdapter extends BaseAdapter {
 	}
 
 	class HoldView {
-		ImageView mIvHead;
+//		ImageView mIvHead;
 		TextView mTvName;
 		TextView mTvContent;
 	}

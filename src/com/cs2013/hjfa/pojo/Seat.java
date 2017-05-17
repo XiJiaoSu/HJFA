@@ -9,8 +9,14 @@ public class Seat {
 	private String description;
 	private String level;
 	
-
+	private Library library;
 	
+	public Library getLibrary() {
+		return library;
+	}
+	public void setLibrary(Library library) {
+		this.library = library;
+	}
 	public String getId() {
 		return id;
 	}
@@ -48,6 +54,11 @@ public class Seat {
 	public void setLevel(String level) {
 		this.level = level;
 	}
-	
+	@Override
+	public String toString() {
+		return "Seat [id=" + id + ", name=" + name + ", state=" + state
+				+ ", pid=" + pid + ", description=" + description + ", level="
+				+ level + ", library=" + library + "]";
+	}
 	
 }

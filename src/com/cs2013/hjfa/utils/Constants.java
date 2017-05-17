@@ -1,7 +1,7 @@
 package com.cs2013.hjfa.utils;
 
 public class Constants {
-	//private static final String URL_PREFFIX = "http://192.168.56.1:8080/library";
+//	private static final String URL_PREFFIX = "http://192.168.10.86:8080/library";
 	private static final String URL_PREFFIX = "http://118.89.106.93:8080/library";
 	public static final String URL_LOGIN = URL_PREFFIX + "/user/login";// 用户登陆的接口
 	public static final int STATE_OK = 0;// 请求网络成功
@@ -35,5 +35,13 @@ public class Constants {
 	public static final String URL_ORDER_HISTORY=URL_PREFFIX+"/order/list";//查询自己的订单
 	public static final int CODE_ORDER_HISTORY=108;
 	
+	public static final String URL_ORDER_CONFIRM=URL_PREFFIX+"/order/confirm";
+	public static final int CODE_ORDER_CONFIRM=110;
+	
+	public static final String URL_USER_REGISTER=URL_PREFFIX+"/user/register";
+	public static final int CODE_USER_REGISTER=120;
+	
+	public static final String URL_ORDER_CANCLE = URL_PREFFIX + "/order/cancle";
+	public static final int CODE_ORDER_CANCLE = 130;//取消座位预定
 	
 }

@@ -83,7 +83,7 @@ public class NetWorkResponse {
 						msg.arg1 = tos;
 						msg.sendToTarget();// 将消息发送给Handler进行处理
 					} catch (Exception e) {
-						Log.e("Log", "Exception:"+e.getLocalizedMessage());
+						Log.e("Log", "Exception:"+e.getMessage());
 						BaseException baseException=null;
 						if (e instanceof BaseException) {
 							baseException=(BaseException) e;

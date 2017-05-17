@@ -43,6 +43,10 @@ public class Library {
 		this.level = level;
 	}
 
-	
-	
+	@Override
+	public String toString() {
+		return "Library [id=" + id + ", name=" + name + ", address=" + address
+				+ ", level=" + level + "]";
+	}
+
 }
